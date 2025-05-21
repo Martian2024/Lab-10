@@ -147,7 +147,7 @@ if __name__ == '__main__':
         recognizer.adjust_for_ambient_noise(source, duration=0.5)
     tts = pyttsx3.init()
     answer = None
-    print('You can now speak')
+    print('You can now speak. To see available commands say <help>')
     tts.say('You can now speak')
     tts.runAndWait()
     

@@ -3,14 +3,13 @@ import requests
 import json
 import pyttsx3
 import webbrowser
-from vosk import SetLogLevel
 
 
 def func(answer):
     try:
         with microphone as source:
             audio = recognizer.listen(source)
-        text = json.loads(recognizer.recognize_vosk(audio, language='ru'))['text'].split()
+        text = list(map(lambda x: x.lower(), recognizer.recognize_google(audio, language='en').split()))
         print('You just said: ' + ' '.join(text) + '\n')
         if 'find' in text:
             try:
@@ -144,11 +143,6 @@ if __name__ == '__main__':
     print('Loading...')
     recognizer = sr.Recognizer()
     microphone = sr.Microphone(device_index = 1)
-    SetLogLevel(-1)
-    test = sr.AudioFile('start.wav')
-    with test as source:
-        audio = recognizer.record(source)
-    recognizer.recognize_vosk(audio)
     with microphone as source:
         recognizer.adjust_for_ambient_noise(source, duration=0.5)
     tts = pyttsx3.init()
